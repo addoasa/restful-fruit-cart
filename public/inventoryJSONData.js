@@ -1,4 +1,4 @@
-[
+const inventory = [
 	{
 		"id": "A",
 		"description": "Apple",
