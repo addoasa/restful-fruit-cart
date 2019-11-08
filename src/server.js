@@ -3,21 +3,17 @@ const app = express();
 const PORT = 3000;
 const fs = require('fs');
 const path = require('path');
+const shoppingController = require('./controllers/shopping-controller');
 
+// Help serve static assets in public folder
 app.use(express.static('public'));
-app.get("/",(req,res)=>{
-  res.header({
-    'content-type': 'text/html'
-  })
-  res.statusCode(200).send(path.join(__dirname,"../public/index.html"))
-})
-app.post("/addToCart",(req,res)=>{
-  
-})
-app.post("/clearCart",(req,res)=>{
 
-})
+// Routes
+app.get("/", shoppingController.getInventory)
+app.post("/addToCart", shoppingController.addToCart)
+app.post("/clearCart", shoppingController.clearCart)
 
+// Server running
 app.listen(PORT,()=>{
   console.log(`Application listening on localhost port ${PORT}`)
 })
