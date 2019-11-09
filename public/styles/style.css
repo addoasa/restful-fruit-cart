@@ -1,2 +1,7 @@
-body{
+.inventory-set{
+  display:grid;
+  grid-template-columns: 300px 300px;
+}
+.inventory-item{
+  border: grey 3pt solid;
 }

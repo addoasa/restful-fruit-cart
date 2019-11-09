@@ -1,4 +1,4 @@
-const inventory = [
+const inventoryJSON = [
 	{
 		"id": "A",
 		"description": "Apple",
