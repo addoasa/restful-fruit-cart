@@ -9,11 +9,14 @@ const bodyParser = require('body-parser');
 app.use(express.static('public'));
 app.use(bodyParser.json());
 // Routes
-app.get("/", shoppingController.getInventory)
-app.post("/addToCart", shoppingController.addToCart)
-app.get("/clearCart", shoppingController.clearCart)
-
+app.get("/", shoppingController.getInventory);
+app.post("/addToCart", shoppingController.addToCart);
+app.get("/clearCart", shoppingController.clearCart);
+app.get("/getQuoteAndApplyDiscounts", shoppingController.getQuoteAndApplyDiscounts);
 // Server running
 app.listen(PORT,()=>{
   console.log(`Application listening on localhost port ${PORT}`)
 })
+module.exports = {
+  app
+}

@@ -1,7 +1,7 @@
 console.log(inventoryJSON);
 let shoppingCartArr = localStorage.getItem('shoppingCart') ? JSON.parse(localStorage.getItem('shoppingCart')) : [];
 
-const header = document.querySelector("header");
+const header = document.querySelector(".shop-header");
 const cartCount = document.createElement('h3');
 cartCount.innerText = localStorage.getItem('shoppingCart') ? JSON.parse(localStorage.getItem('shoppingCart')).length : 0 ;
 cartCount.id = 'cart-count';
@@ -72,7 +72,4 @@ function addItem(event){
   })
   
 }
-//---------------------------------------------------------
-//                       Checkout Page
-//---------------------------------------------------------
 
