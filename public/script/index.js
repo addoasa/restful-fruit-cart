@@ -1,6 +1,33 @@
 console.log(inventoryJSON);
-const shoppingCartArr = []
+let shoppingCartArr = localStorage.getItem('shoppingCart') ? JSON.parse(localStorage.getItem('shoppingCart')) : [];
 
+const header = document.querySelector("header");
+const cartCount = document.createElement('h3');
+cartCount.innerText = localStorage.getItem('shoppingCart') ? JSON.parse(localStorage.getItem('shoppingCart')).length : 0 ;
+cartCount.id = 'cart-count';
+header.appendChild(cartCount);
+
+const clearCart = document.createElement('button');
+clearCart.addEventListener('click',()=>{
+  localStorage.removeItem('shoppingCart');
+  shoppingCartArr = [];
+  cartCount.innerText = 0;
+  console.log(localStorage.getItem('shoppingCart'))
+  fetch('http://localhost:3000/clearCart', {
+    method: "get",
+    headers:{
+      'content-type' : 'application/json',
+      'Accept' : 'application/json'
+    }
+  })
+  .then((result)=>{
+    console.log("result", result)
+  })
+
+
+})
+clearCart.innerText = "clear cart"
+header.appendChild(clearCart)
 const inventorySet = document.querySelector('.inventory-set');
 inventorySet.classList.add('inventory-set');
 
@@ -26,10 +53,12 @@ for(let i = 0; i < inventoryJSON.length; i++){
   inventoryItem.appendChild(addToCartBtn);
   inventorySet.appendChild(inventoryItem);
 }
+
 function addItem(event){
   shoppingCartArr.push(event.target.id);
   localStorage.setItem('shoppingCart', JSON.stringify(shoppingCartArr));
   console.log(localStorage.getItem('shoppingCart'));
+  cartCount.innerText = JSON.parse(localStorage.getItem('shoppingCart')).length;
   fetch('http://localhost:3000/addToCart', {
     method: "post",
     headers:{
@@ -43,3 +72,7 @@ function addItem(event){
   })
   
 }
+//---------------------------------------------------------
+//                       Checkout Page
+//---------------------------------------------------------
+

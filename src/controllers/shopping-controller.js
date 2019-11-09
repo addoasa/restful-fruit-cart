@@ -10,11 +10,14 @@ module.exports = {
 			'content-type': 'application/json'
 		});
     console.log('item successfully added.');
-    console.log(req.body)
+    console.log(req.body);
     res.locals.shoppingCart = req.body;
 		res.send('good job');
 	},
 	clearCart: (req,res)=>{
-  
+    res.locals.shoppingCart = [];
+    console.log("cart was emptied.")
+    res.send();
+
 	}
 };

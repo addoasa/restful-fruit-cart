@@ -11,7 +11,7 @@ app.use(bodyParser.json());
 // Routes
 app.get("/", shoppingController.getInventory)
 app.post("/addToCart", shoppingController.addToCart)
-app.post("/clearCart", shoppingController.clearCart)
+app.get("/clearCart", shoppingController.clearCart)
 
 // Server running
 app.listen(PORT,()=>{
