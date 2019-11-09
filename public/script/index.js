@@ -7,6 +7,8 @@ cartCount.innerText = localStorage.getItem('shoppingCart') ? JSON.parse(localSto
 cartCount.id = 'cart-count';
 header.appendChild(cartCount);
 
+const total = document.querySelector('#total');
+total.innerText = localStorage.getItem('finalPrice') ? ('$' + JSON.parse(localStorage.getItem('finalPrice'))) : ("$" + 0);
 const clearCart = document.createElement('button');
 clearCart.addEventListener('click',()=>{
   localStorage.removeItem('shoppingCart');
@@ -21,7 +23,11 @@ clearCart.addEventListener('click',()=>{
     }
   })
   .then((result)=>{
-    console.log("result", result)
+    return result.text()
+  })
+  .then((data)=>{
+    total.innerText = '$' + data
+    localStorage.setItem('finalPrice', data)
   })
 
 
@@ -68,7 +74,11 @@ function addItem(event){
     body : localStorage.getItem('shoppingCart'),
   })
   .then((result)=>{
-    console.log("result", result)
+    return result.text()
+  })
+  .then((data)=>{
+    total.innerText = '$' + data
+    localStorage.setItem('finalPrice', data)
   })
   
 }
