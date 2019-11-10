@@ -5,27 +5,38 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" type="text/css" href="styles/style.css"> 
+  <link href="https://fonts.googleapis.com/css?family=Annie+Use+Your+Telescope|Gamja+Flower|Maitree&display=swap" rel="stylesheet">
   <title>Shopping Cart</title>
 </head>
 <body>
-  <header class = "shop-header">
-    <div class="header-logo-title">
-      <img src="">
-      <h1>Sweet Nature</h1>
-      <h2 id="total"></h2>
-    </div>
-    <div class ="shopping-cart-status">
-      <img src="">
-      <a href= "./checkout.html">cart page</a>
+  <header >
+    <div class = "shop-header">
+      <div class="header-logo-title">
+        <img id= logo-img src="./assets/watercolor-leaf.png">
+        <h1 id="logo-title">Nuture Basket</h1>
+      </div>
+      <div class="shopping-tools">
+        <div class ="shopping-cart-status">
+          <img id="cart-status-icon" src="./assets/shopping-cart.png">
+        </div>
+        <div id="vertical-line"></div>
+        <div class = "checkout-clear-btns">
+          <h3 id="checkout-btn">CHECKOUT</h3>
+          <h3 id="clear-cart-btn">EMPTY CART</h3>
+        </div>
+      </div>
     </div>
   </header>
-  <main>
-    <section class="inventory-set">
-      
+  <aside id="modal-container">
+      <h2 id="total"></h2>
+  </aside>
+  <main id= "main-content">
+    <section class="inventory-set">     
     </section>
   </main>
-
+  <footer></footer>
   <script type= "text/javascript" src ="clientInventoryJSONData.js"></script>
   <script type= "text/javascript" src ="script/index.js"></script>
 </body>
+
 </html>
