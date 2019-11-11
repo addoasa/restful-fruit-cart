@@ -164,3 +164,8 @@ function updateCheckoutList(){
 	checkoutTotal.innerText = 'Total :' + (localStorage.getItem('finalPrice') ? ('$' + JSON.parse(localStorage.getItem('finalPrice'))) : ('$' + 0));
 }
 
+const finalAmountForTesting = total.innerText;
+module.exports = {
+  shoppingCartArr,
+  finalAmountForTesting,
+};

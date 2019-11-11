@@ -17,3 +17,4 @@ app.get('/clearCart', clearCart, getQuoteAndApplyDiscounts);
 app.listen(PORT,()=>{
 	console.log(`Application running on localhost ${PORT}`);
 });
+module.exports = app;
