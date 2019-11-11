@@ -10,25 +10,27 @@ module.exports = {
 		res.header({
 			'content-type': 'application/json'
 		});
-		console.log('item successfully added.');
+		console.log('Item successfully added.');
+		// store localstorage shopping cart from post request body for later use
 		res.locals.shoppingCart = req.body;
-		console.log('add', res.locals.shoppingCart);
+		console.log('added', res.locals.shoppingCart);
 		next();
 	},
 	clearCart: (req,res,next)=>{
-		console.log('clear',res.locals.shoppingCart);
 		res.locals.shoppingCart = [];
 		console.log('Cart was emptied.');
+		console.log('cleared',res.locals.shoppingCart);
 		next();
 
 	},
 	getQuoteAndApplyDiscounts: (req,res)=>{
 		let totalPrice = 0;
 		const finalCart = res.locals.shoppingCart;
-		// // first get the base price
-		// console.log(inventoryJSON, "inventory")
+		// 1) first get the base price
+		// store item count in object below to check for discounts later
 		const lookForDiscountInThisObj = {};
 		if(finalCart){
+			// iterate through localstorage shopping cart sent from frontend, build object and sum up total
 			for(let i = 0; i < finalCart.length; i++){
 				if(lookForDiscountInThisObj[finalCart[i]]){
 					lookForDiscountInThisObj[finalCart[i]]++;
@@ -42,24 +44,28 @@ module.exports = {
 				}
 			}
 		}
-		console.log(totalPrice, 'price before discount');
+		// 2) Check for discount
+		console.log('$'+ totalPrice, 'price before discount');
 		// then apply discounts if available
-    console.log(lookForDiscountInThisObj, 'obj');
-    // I chose to hard code the checking for discount conditions below (as opposed to iterating through/using JSON data to verify discounts) because it is uncertain to know the nature of every possible discount. While it would be nice to use JSON data to automate the discount checking process the discounts follow different rules.
+    console.log(lookForDiscountInThisObj, 'looking for discounts...');
+		/* I chose to hard code the discount conditions below 
+		(as opposed to iterating through/using JSON data to verify discounts) because it is uncertain 
+		to know the nature of every possible discount. The discounts follow different rules. */
 		let discount;
 		for(let key in lookForDiscountInThisObj){
 			if(key === 'A' && lookForDiscountInThisObj[key] >= 4){
 				discount = Math.floor(lookForDiscountInThisObj[key] / 4); 
 				totalPrice = totalPrice - discount;
+				console.log('discount applied');
 			}if(key === 'C' && lookForDiscountInThisObj[key] >= 6){
 				discount = Math.floor(lookForDiscountInThisObj[key] / 6); 
 				totalPrice = totalPrice - (1.5 * discount);
+				console.log('discount applied');
 			}
 		}
-		console.log(totalPrice, 'price after discount');
-
+		console.log('$' + totalPrice, 'price after discount');
+		// send the final calculated price in response to the frontend
 		res.send(JSON.stringify(totalPrice));
-		// res.send('anything?');
 
 	}
 };
