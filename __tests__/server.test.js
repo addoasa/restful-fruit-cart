@@ -1,11 +1,7 @@
-// test the discounts
 const request = require('supertest');
-const app = require('../src/server');
+const app = require('../src/app');
 const shoppingController = require('../src/controllers/shopping-controller');
 
-//test clearcart
-
-//test addtocart
 describe("Testing Server", ()=>{
   describe("Testing file serving",()=>{
     it("requesting '/' route should respond with a status of 200",(done)=>{

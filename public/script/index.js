@@ -165,7 +165,3 @@ function updateCheckoutList(){
 }
 
 const finalAmountForTesting = total.innerText;
-module.exports = {
-  shoppingCartArr,
-  finalAmountForTesting,
-};
