@@ -26,7 +26,7 @@ RESTful shopping API that allows clients to manage end-user shopping experiences
 ... 
 (It's just a shopping cart.)
  
- ![alt text](https://postimg.cc/6TKBSHkq)
+ ![alt text](https://i.postimg.cc/gcXrxQ4V/shoppingcart.gif)
 
 Given a cart containing a collection of items selected from an inventory list, the API computes the total price an applies volume discounts when possible. For example: Apples are $2.00 each. A cart containing three apples (id “A”) would cost a total of $6.00... but a cart with eight apples would end up costing a total of $14.00 because of the 4 for $7.00 discount. 
 (Some expensive fruit)
