@@ -32,13 +32,25 @@ for(let i = 0; i < inventoryJSON.length; i++){
 	let addToCartBtn = document.createElement('button');
 	addToCartBtn.id = inventoryJSON[i].id;
 	addToCartBtn.classList.add('inventory-item-btn');
+	addToCartBtn.classList.add(inventoryJSON[i].description);
 	addToCartBtn.innerText = 'Add to Cart';
 	addToCartBtn.addEventListener('click',addItem);
-  
-	// insert the new UI items into the DOM
+	
+	
+	// insert data into UI item
 	inventoryItem.appendChild(inventoryItemDesc);
 	inventoryItem.appendChild(inventoryItemPrice);
 	inventoryItem.appendChild(addToCartBtn);
+
+	// create discount if discount exists for the item
+	if(inventoryJSON[i].volume_discounts.length){
+		let discount = document.createElement('h4');
+		discount.classList.add('inventory-item-discount');
+		discount.innerText = `* Sale: ${inventoryJSON[i].volume_discounts[0].number} for $${inventoryJSON[i].volume_discounts[0].price} *`;
+		inventoryItem.appendChild(discount);
+	}
+
+	// insert UI item into the DOM
 	inventoryContainer.appendChild(inventoryItem);
 }
 
@@ -63,10 +75,13 @@ function addItem(event){
 			return result.text();
 		})
 		.then((data)=>{
-			total.innerText = '$' + data;
+			total.innerText = '$' + JSON.parse(data).toFixed(2);
 			localStorage.setItem('finalPrice', data);
 		});
 	// store the final price (including discount) in localstorage
+
+	// notify the user that their item has been added
+	notifyUser(event.target.classList[1]);
 }
 
 /*-----------------
@@ -83,7 +98,7 @@ cartStatus.appendChild(cartCount);
 
 // update total with final price in localstorage
 const total = document.querySelector('.total');
-total.innerText = localStorage.getItem('finalPrice') ? ('$' + JSON.parse(localStorage.getItem('finalPrice'))) : ('$' + 0);
+total.innerText = localStorage.getItem('finalPrice') ? ('$' + JSON.parse(localStorage.getItem('finalPrice')).toFixed(2)) : ('$' + 0);
 
 
 const clearCart = document.querySelector('#clear-cart-btn');
@@ -126,7 +141,7 @@ const modal = document.querySelector('#modal-container');
 const checkoutList = document.querySelector('.checkout-list');
 
 const checkoutTotal = document.createElement('h3');
-checkoutTotal.innerText = 'Total :' + (localStorage.getItem('finalPrice') ? ('$' + JSON.parse(localStorage.getItem('finalPrice'))) : ('$' + 0));
+checkoutTotal.innerText = 'Total :' + (localStorage.getItem('finalPrice') ? ('$' + JSON.parse(localStorage.getItem('finalPrice')).toFixed(2)) : ('$' + 0));
 modal.appendChild(checkoutTotal);
 
 // close modal
@@ -164,4 +179,34 @@ function updateCheckoutList(){
 	checkoutTotal.innerText = 'Total :' + (localStorage.getItem('finalPrice') ? ('$' + JSON.parse(localStorage.getItem('finalPrice'))) : ('$' + 0));
 }
 
-const finalAmountForTesting = total.innerText;
+/*-----------------
+    Notification
+-------------------*/
+{/* <img id="cart-status-icon" src="./assets/shopping-cart.png"> */}
+// notify the user that their item was added whenever they click add to cart
+function notifyUser(item){	
+	let footer = document.querySelector('footer');
+	// create UI item whenever user adds an item to shopping cart
+	let notificationContainer = document.createElement('div');
+	notificationContainer.classList.add("notification-container");
+	let notificationIcon = document.createElement('img');
+	notificationIcon.src = "./assets/shopping-cart.png";
+	notificationIcon.id = "notification-icon";
+	let notificationMessage = document.createElement('h4');
+	notificationMessage.classList.add("notification-message");
+	
+	// insert the product that was added to the cart into the notification message
+	notificationMessage.innerText = `${item} added to shopping cart`;
+
+	// append ui component into the dom
+	notificationContainer.appendChild(notificationIcon);
+	notificationContainer.appendChild(notificationMessage);
+	footer.appendChild(notificationContainer);
+
+	// Give the notification 3 seconds before it disappears
+	setTimeout(()=>{
+		notificationContainer.remove();
+	},2000);
+
+
+}

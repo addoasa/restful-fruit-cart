@@ -18,12 +18,14 @@
     "express": "^4.17.1",
     "jest": "^24.9.0",
     "nodemon": "^1.19.4",
+    "parcel": "^1.12.4",
     "regenerator-runtime": "^0.13.3",
     "superagent": "^5.1.0",
     "supertest": "^4.0.2"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.7.1",
-    "eslint": "^6.6.0"
+    "eslint": "^6.6.0",
+    "parcel-bundler": "^1.12.4"
   }
 }

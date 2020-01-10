@@ -37,6 +37,9 @@ module.exports = {
 				}else{
 					lookForDiscountInThisObj[finalCart[i]] = 1;
 				}
+				// For each local storage shopping cart item loop through json of inventory data 
+				// and add each price to the final cost (totalPrice)
+				
 				for(let j = 0; j < inventoryJSON.length; j++){
 					if(finalCart[i] === inventoryJSON[j].id){
 						totalPrice = totalPrice + inventoryJSON[j].unit_price;
@@ -44,7 +47,7 @@ module.exports = {
 				}
 			}
 		}
-		// 2) Check for discount
+		// 2) Then check for discounts
 		console.log('$'+ totalPrice, 'price before discount');
 		// then apply discounts if available
     console.log(lookForDiscountInThisObj, 'looking for discounts...');
@@ -52,6 +55,7 @@ module.exports = {
 		(as opposed to iterating through/using JSON data to verify discounts) because it is uncertain 
 		to know the nature of every possible discount. The discounts follow different rules. */
 		let discount;
+		// loop through shopping cart object we built earlier
 		for(let key in lookForDiscountInThisObj){
 			if(key === 'A' && lookForDiscountInThisObj[key] >= 4){
 				discount = Math.floor(lookForDiscountInThisObj[key] / 4); 
